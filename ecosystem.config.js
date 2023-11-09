@@ -16,7 +16,7 @@ module.exports = {
       'pre-deploy-local':
         'scp .env sasha0908@51.250.22.46:/home/sasha0908/auto-deploy/current',
       'post-deploy':
-        'pwd && cd backend && npm i && pm2 startOrRestart ecosystem.config.js --env production',
+        'pwd && npm i && pm2 startOrRestart ecosystem.config.js --env production',
     },
   },
 };
