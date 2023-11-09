@@ -2,7 +2,7 @@
 
 const Movies = require('../models/Movies');
 const { HTTP_STATUS_OK } = require('../consts/consts');
-const { BadRequestError, NotFoundError } = require('../errors/errors');
+const { BadRequestError, NotFoundError, ForbiddenError } = require('../errors/errors');
 
 const getMovies = (req, res, next) => {
   Movies.find({})
@@ -58,6 +58,11 @@ const deleteMovies = (req, res, next) => {
     .then((movies) => {
       if (!movies) {
         return next(new NotFoundError('Фильм по указанному _id не найдена'));
+      }
+      if (movies.owner.toString() !== req.user._id) {
+        return next(
+          new ForbiddenError('Разрешено удалять только свои сохраненные фильмы'),
+        );
       }
       return Movies.findByIdAndDelete(movieId).then((deletedMovies) => res.status(HTTP_STATUS_OK).send(deletedMovies));
     })
