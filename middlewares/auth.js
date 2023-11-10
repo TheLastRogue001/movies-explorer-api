@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
   const token = authorization.split('Bearer ')[1];
 
   if (!authorization && !authorization.startsWith('Bearer ')) {
-    return next(new UnauthorizedError('Необходима авторизация2!'));
+    return next(new UnauthorizedError('Необходима авторизация!'));
   }
 
   try {
@@ -18,8 +18,8 @@ module.exports = (req, res, next) => {
       NODE_ENV === 'production' ? JWT_SECRET : 'secret-key',
     );
   } catch (error) {
-    next(new UnauthorizedError('Необходима авторизация!1'));
+    next(new UnauthorizedError('Необходима авторизация!'));
   }
   req.user = payload;
-  next();
+  next(new UnauthorizedError('Необходима авторизация!'));
 };
