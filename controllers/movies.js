@@ -68,7 +68,7 @@ const deleteMovies = (req, res, next) => {
           new ForbiddenError('Разрешено удалять только свои сохраненные фильмы'),
         );
       }
-      return Movies.findByIdAndDelete(movies).then((deletedMovies) => res.status(HTTP_STATUS_OK).send(deletedMovies));
+      return Movies.findByIdAndDelete(movies.movieId).then((deletedMovies) => res.status(HTTP_STATUS_OK).send(deletedMovies));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
