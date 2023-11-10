@@ -1,12 +1,16 @@
 /* eslint-disable max-len */
-
 const Movies = require('../models/Movies');
 const { HTTP_STATUS_OK } = require('../consts/consts');
-const { BadRequestError, NotFoundError, ForbiddenError } = require('../errors/errors');
+const {
+  BadRequestError,
+  NotFoundError,
+  ForbiddenError,
+} = require('../errors/errors');
 
 const getMovies = (req, res, next) => {
-  Movies.find({})
-    .then((moviess) => res.send(moviess))
+  const owner = req.user._id;
+  Movies.findById(owner)
+    .then((movies) => res.send(movies))
     .catch((err) => next(err));
 };
 
@@ -53,18 +57,18 @@ const createMovies = (req, res, next) => {
 };
 
 const deleteMovies = (req, res, next) => {
-  const { movieId } = req.params;
-  Movies.findById(movieId)
+  const owner = req.user._id;
+  Movies.findById(owner)
     .then((movies) => {
       if (!movies) {
-        return next(new NotFoundError('Фильм по указанному _id не найдена'));
+        return next(new NotFoundError('Фильм по указанному _id не найден'));
       }
       if (movies.owner.toString() !== req.user._id) {
         return next(
           new ForbiddenError('Разрешено удалять только свои сохраненные фильмы'),
         );
       }
-      return Movies.findByIdAndDelete(movieId).then((deletedMovies) => res.status(HTTP_STATUS_OK).send(deletedMovies));
+      return Movies.findByIdAndDelete(movies).then((deletedMovies) => res.status(HTTP_STATUS_OK).send(deletedMovies));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
