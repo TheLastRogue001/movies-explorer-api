@@ -8,14 +8,10 @@ const { errors } = require('celebrate');
 require('dotenv').config();
 const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const routerUsers = require('./routes/users');
-const routerMovies = require('./routes/movies');
-const routerAuth = require('./routes/auth');
-const auth = require('./middlewares/auth');
-const { NotFoundError } = require('./errors/errors');
+const router = require('./routes/index');
 const { handleError } = require('./middlewares/handleError');
 
-const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
+const { PORT = 3000, MONGO_URL } = process.env;
 
 const app = express();
 
@@ -32,14 +28,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use(routerAuth);
-
-app.use(auth);
-
-app.use(routerUsers);
-app.use(routerMovies);
-
-app.use((req, res, next) => next(new NotFoundError('Такой страницы не существует')));
+app.use(router);
 
 app.use(errorLogger);
 
