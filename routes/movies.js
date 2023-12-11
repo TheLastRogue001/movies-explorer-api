@@ -14,7 +14,7 @@ router.post(
     body: Joi.object().keys({
       country: Joi.string().required().min(2).max(30),
       director: Joi.string().required().min(2).max(30),
-      duration: Joi.number().required().min(2).max(30),
+      duration: Joi.number().required().min(2),
       year: Joi.string().required().min(2).max(30),
       description: Joi.string().required().min(2).max(30),
       image: Joi.string()
