@@ -57,7 +57,6 @@ const createMovies = (req, res, next) => {
 
 const deleteMovies = (req, res, next) => {
   const { _id } = req.params;
-  console.log(_id);
   Movies.findById(_id)
     .then((movies) => {
       if (!movies) {
@@ -68,11 +67,9 @@ const deleteMovies = (req, res, next) => {
           new ForbiddenError('Разрешено удалять только свои сохраненные фильмы'),
         );
       }
-      console.log(_id);
-      return Movies.findByIdAndDelete(movies.movieId).then((deletedMovies) => res.status(HTTP_STATUS_OK).send(deletedMovies));
+      return Movies.findByIdAndDelete(_id).then((deletedMovies) => res.status(HTTP_STATUS_OK).send(deletedMovies));
     })
     .catch((err) => {
-      console.log(_id);
       if (err.name === 'CastError') {
         return next(new BadRequestError('Передан некорректный _id фильма'));
       }
