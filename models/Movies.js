@@ -44,7 +44,6 @@ const moviesSchema = new mongoose.Schema({
       message: 'Это поле обязательно к заполнению',
     },
     minlength: [2, 'Минимум 2 символа'],
-    maxlength: [30, 'Максимум 30 символов'],
   },
   image: {
     type: String,
