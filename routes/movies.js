@@ -29,7 +29,7 @@ router.post(
         .required()
         .regex(urlRegex)
         .uri({ scheme: ['http', 'https'] }),
-      movieId: Joi.string().hex().length(24).required(),
+      movieId: Joi.number().hex().required(),
       nameEN: Joi.string().required().min(2).max(30),
       nameRU: Joi.string().required().min(2).max(30),
     }),
