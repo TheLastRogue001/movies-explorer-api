@@ -4,7 +4,7 @@ const { HTTP_STATUS_OK } = require('../consts/consts');
 const {
   BadRequestError,
   NotFoundError,
-  ForbiddenError,
+  // ForbiddenError,
 } = require('../errors/errors');
 
 const getMovies = (req, res, next) => {
@@ -62,11 +62,11 @@ const deleteMovies = (req, res, next) => {
       if (!movies) {
         return next(new NotFoundError('Фильм по указанному _id не найден'));
       }
-      if (movies.owner.toString() !== req.user._id) {
-        return next(
-          new ForbiddenError('Разрешено удалять только свои сохраненные фильмы'),
-        );
-      }
+      // if (movies.owner.toString() !== req.user._id) {
+      //   return next(
+      //     new ForbiddenError('Разрешено удалять только свои сохраненные фильмы'),
+      //   );
+      // }
       return Movies.findByIdAndDelete(_id).then((deletedMovies) => res.status(HTTP_STATUS_OK).send(deletedMovies));
     })
     .catch((err) => {
