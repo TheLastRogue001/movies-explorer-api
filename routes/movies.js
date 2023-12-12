@@ -30,8 +30,8 @@ router.post(
         .regex(urlRegex)
         .uri({ scheme: ['http', 'https'] }),
       movieId: Joi.number().required(),
-      nameEN: Joi.string().required().min(2).max(30),
-      nameRU: Joi.string().required().min(2).max(30),
+      nameEN: Joi.string().required().min(2).max(120),
+      nameRU: Joi.string().required().min(2).max(120),
     }),
   }),
   createMovies,

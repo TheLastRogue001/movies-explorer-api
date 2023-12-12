@@ -8,7 +8,8 @@ const {
 } = require('../errors/errors');
 
 const getMovies = (req, res, next) => {
-  Movies.find({})
+  const owner = req.user._id;
+  Movies.findById(owner)
     .then((movies) => res.send(movies))
     .catch((err) => next(err));
 };
