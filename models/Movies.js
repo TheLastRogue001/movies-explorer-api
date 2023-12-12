@@ -19,7 +19,7 @@ const moviesSchema = new mongoose.Schema({
       message: 'Это поле обязательно к заполнению',
     },
     minlength: [2, 'Минимум 2 символа'],
-    maxlength: [30, 'Максимум 30 символов'],
+    maxlength: [120, 'Максимум 120 символов'],
   },
   duration: {
     type: Number,
@@ -85,7 +85,7 @@ const moviesSchema = new mongoose.Schema({
       message: 'Это поле обязательно к заполнению',
     },
     minlength: [2, 'Минимум 2 символа'],
-    maxlength: [120, 'Максимум 30 символов'],
+    maxlength: [120, 'Максимум 120 символов'],
   },
   nameEN: {
     type: String,
@@ -94,7 +94,7 @@ const moviesSchema = new mongoose.Schema({
       message: 'Это поле обязательно к заполнению',
     },
     minlength: [2, 'Минимум 2 символа'],
-    maxlength: [120, 'Максимум 30 символов'],
+    maxlength: [120, 'Максимум 120 символов'],
   },
 });
 

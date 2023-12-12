@@ -13,7 +13,7 @@ router.post(
   celebrate({
     body: Joi.object().keys({
       country: Joi.string().required().min(2).max(30),
-      director: Joi.string().required().min(2).max(30),
+      director: Joi.string().required().min(2).max(120),
       duration: Joi.number().required(),
       year: Joi.string().required().min(2).max(30),
       description: Joi.string().required().min(2),
