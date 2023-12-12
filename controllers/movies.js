@@ -10,7 +10,7 @@ const {
 const getMovies = (req, res, next) => {
   const owner = req.user._id;
   Movies.findById(owner)
-    .then(() => res.send({ owner }))
+    .then((movies) => res.send({ movies }))
     .catch((err) => next(err));
 };
 
